@@ -8,24 +8,24 @@
 <div *ngIf="displayControl>-1 && displayControl<13 && symptomList">
     do you have {{symptomList[displayControl].name}}
     <div *ngIf="!showOptions">
-        <button class="btn btn-outline-primary" (click)="symptomList[displayControl].value=true;checkIntensityOptions(displayControl)" class="option">Yes</button>
+        <button class="btn btn-outline-primary" (click)="symptomList[displayControl].value=true;checkIntensityOptions(displayControl)" >Yes</button>
         <br>
-        <button class="btn btn-outline-primary" (click)="symptomList[displayControl].value=false;displayControl=displayControl+1" class="option">No</button>
-    </div>6666
+        <button class="btn btn-outline-primary" (click)="symptomList[displayControl].value=false;displayControl=displayControl+1">No</button>
+    </div>
     <div *ngIf="showOptions">
         please select the intensity-
         <br>
-        <button class="btn btn-outline-primary" (click)="symptomList[displayControl].intensity='low';displayControl=displayControl+1;showOptions=0" class="option">{{symptomList[displayControl].intensityOptions[0]}}</button>
+        <button class="btn btn-outline-primary" (click)="symptomList[displayControl].intensity='low';displayControl=displayControl+1;showOptions=0">{{symptomList[displayControl].intensityOptions[0]}}</button>
         <br>
-        <button class="btn btn-outline-primary" (click)="symptomList[displayControl].intensity='medium';displayControl=displayControl+1;showOptions=0" class="option">{{symptomList[displayControl].intensityOptions[1]}}</button>
+        <button class="btn btn-outline-primary" (click)="symptomList[displayControl].intensity='medium';displayControl=displayControl+1;showOptions=0">{{symptomList[displayControl].intensityOptions[1]}}</button>
         <br>
-        <button class="btn btn-outline-primary" (click)="symptomList[displayControl].intensity='high';displayControl=displayControl+1;showOptions=0" class="option">{{symptomList[displayControl].intensityOptions[2]}}</button>
+        <button class="btn btn-outline-primary" (click)="symptomList[displayControl].intensity='high';displayControl=displayControl+1;showOptions=0">{{symptomList[displayControl].intensityOptions[2]}}</button>
     </div>
 </div>
 <div *ngIf="displayControl==13">
-    <button class="btn btn-outline-success" (click)="sendData();displayControl=displayControl+1" class="option">submit</button>
+    <button class="btn btn-outline-success" (click)="sendData();displayControl=displayControl+1">submit</button>
 </div>
 <div *ngIf="displayControl>0">
     <hr>
-    <button class="btn btn-outline-dark" (click)="displayControl=displayCon6trol-1" class="option">back</button>
+    <button class="btn btn-outline-dark" (click)="displayControl=displayControl-1">back</button>
 </div>

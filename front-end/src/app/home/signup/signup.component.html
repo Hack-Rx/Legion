@@ -1,0 +1,25 @@
+<h3> Sign up </h3>
+<div class="form-group">
+    <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput [(ngModel)]="name" value="">
+    </mat-form-field>
+</div>
+<div class="form-group">
+    <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" [(ngModel)]="email" value="">
+    </mat-form-field>
+</div>
+<div class="form-group">
+    <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" [(ngModel)]="password" value="">
+    </mat-form-field>
+</div>
+<div class="form-group">
+    <button class="btn btn-primary" (click)="signUp()"> Sign up </button>
+</div>
+<div class="form-group">
+    Already have an account, <a routerLink="/login">Login</a>
+</div>

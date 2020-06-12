@@ -7,8 +7,14 @@ const jwtHelper= require('../auth/jwtHelper');
 // functions to handle requests and generate responses
 const {
     sendSymptomList,
-    addSymptomsData
+    addSymptomsData,
+    addMedicalData
 }= require('../symptoms/symptom.controller');
+
+// functions to validate user request data
+const {
+    medicalDataValidation
+}=require('../symptoms/symptom.validator');
 
 
 /* route to send list of all the symptoms to user
@@ -18,5 +24,9 @@ route.get('/symptomList',jwtHelper.verifyjwttoken,sendSymptomList);
 /* route to save symptoms data of user
 method=post */
 route.post('/addSymptoms',jwtHelper.verifyjwttoken,addSymptomsData);
+
+/* route to save medical data of user
+method=post */
+route.post('/medicalData',jwtHelper.verifyjwttoken,medicalDataValidation,addMedicalData);
 
 module.exports=route;

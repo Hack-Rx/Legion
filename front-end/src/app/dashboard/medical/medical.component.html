@@ -1,0 +1,45 @@
+<div *ngIf="displayControl!=0">
+    <button mat-stroked-button color="primary" (click)="displayControl=displayControl-1" class="option">back</button>
+</div>
+<div *ngIf="displayControl==0">
+    <h3>what is your age</h3>
+    <mat-form-field appearance="fill" class="example-full-width">
+        <mat-label>age</mat-label>
+        <input matInput [(ngModel)]='age'>
+    </mat-form-field>
+    <button mat-raised-button color="accent" (click)="displayControl=displayControl+1">confirm</button>
+</div>
+<div *ngIf="displayControl==1">
+    <h3>Are you a smoker, or do you have a history of smoking</h3>
+    <button mat-stroked-button color="primary" (click)="setSmoker(1);displayControl=displayControl+1" class="option">Yes</button>
+    <br>
+    <button mat-stroked-button color="primary" (click)="setSmoker(0);displayControl=displayControl+1" class="option">No</button>
+</div>
+<div *ngIf="displayControl==2">
+    <h3>Do you have high blood pressure</h3>
+    <button mat-stroked-button color="primary" (click)="setBP(1);displayControl=displayControl+1" class="option">Yes</button>
+    <br>
+    <button mat-stroked-button color="primary" (click)="setBP(0);displayControl=displayControl+1" class="option">No</button>
+</div>
+<div *ngIf="displayControl==3">
+    <h3>Do you have diabities</h3>
+    <button mat-stroked-button color="primary" (click)="setDiabities(1);displayControl=displayControl+1" class="option">Yes</button>
+    <br>
+    <button mat-stroked-button color="primary" (click)="setDiabities(0);displayControl=displayControl+1" class="option">No</button>
+</div>
+<div *ngIf="displayControl==4">
+    <h3>Do you have history of heart disease</h3>
+    <button mat-stroked-button color="primary" (click)="setHeart(1);displayControl=displayControl+1" class="option">Yes</button>
+    <br>
+    <button mat-stroked-button color="primary" (click)="setHeart(0);displayControl=displayControl+1" class="option">No</button>
+</div>
+<div *ngIf="displayControl==5">
+    <h3>Do you have history of lung disease</h3>
+    <button mat-stroked-button color="primary" (click)="setLung(1);displayControl=displayControl+1" class="option">Yes</button>
+    <br>
+    <button mat-stroked-button color="primary" (click)="setLung(0);displayControl=displayControl+1" class="option">No</button>
+</div>
+<div *ngIf="displayControl==6">
+    <h3>Your medical history data has been succesfully recorded, click ok submit or back to edit the data.</h3>
+    <button mat-stroked-button color="primary" (click)="sendData();displayControl=displayControl+1" class="option">OK</button>
+</div>

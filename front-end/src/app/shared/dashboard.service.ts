@@ -22,4 +22,8 @@ export class DashboardService {
   postSymptoms(symptomData){
     return this.http.post(this.url2+'/addSymptoms',symptomData);
   }
+
+  postMedicalData(data){
+    return this.http.post(this.url2+'/medicalData',data);
+  }
 }

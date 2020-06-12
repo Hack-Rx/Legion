@@ -20,6 +20,7 @@ import { FormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './dashboard/profile/profile.component';
 import { SymptomComponent } from './dashboard/symptom/symptom.component';
+import { MedicalComponent } from './dashboard/medical/medical.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { SymptomComponent } from './dashboard/symptom/symptom.component';
     LoginComponent,
     DashboardComponent,
     ProfileComponent,
-    SymptomComponent
+    SymptomComponent,
+    MedicalComponent
   ],
   imports: [
     BrowserModule,

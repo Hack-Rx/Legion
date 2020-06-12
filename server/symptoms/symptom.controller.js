@@ -1,6 +1,9 @@
+const { validationResult } = require('express-validator');
+
 //import required database schemas
 const symptoms= require('../db/symptoms');
 const symptomData= require('../db/symptomData');
+const medicalHistory= require('../db/medicalHistory');
 
 /*
 symptom list api controller
@@ -59,4 +62,34 @@ const addSymptomsData= async (req,res)=>{
     }
 }
 
-module.exports = {sendSymptomList, addSymptomsData};
+
+/*
+save user medical data api controller
+req = user medical details
+res = message:medical data saved succesfully
+*/
+const addMedicalData =  async (req,res)=>{
+    const errors= validationResult(req);
+    if(!errors.isEmpty()){
+        res.status(400).send({message:"validation error"});
+    }
+    else{
+        try{
+            var history= new medicalHistory();
+            history.userId= req._id;
+            history.age=req.body.age;
+            history.smoker=req.body.smoker;
+            history.bp= req.body.bp;
+            history.diabities=req.body.diabities;
+            history.heart=req.body.heart;
+            history.lung=req.body.lung;
+            var doc=await history.save();
+            res.status(200).send({message:"medical data saved succesfully"});
+        }
+        catch(err){
+            res.status(500).send({message:err.message});
+        }
+    }
+}
+
+module.exports = {sendSymptomList, addSymptomsData, addMedicalData};

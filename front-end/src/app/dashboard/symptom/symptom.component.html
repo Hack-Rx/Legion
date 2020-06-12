@@ -1,0 +1,31 @@
+<div *ngIf="displayControl==-1">
+    <h4>
+        For accurate results do not foget to log your symptoms daily. let's get started and 
+        calculate your corona risk level. 
+    </h4>
+    <button class="btn btn-primary" (click)="displayControl=displayControl+1">Start</button>
+</div>
+<div *ngIf="displayControl>-1 && displayControl<13 && symptomList">
+    do you have {{symptomList[displayControl].name}}
+    <div *ngIf="!showOptions">
+        <button mat-stroked-button color="primary" (click)="symptomList[displayControl].value=true;checkIntensityOptions(displayControl)" class="option">Yes</button>
+        <br>
+        <button mat-stroked-button color="primary" (click)="symptomList[displayControl].value=false;displayControl=displayControl+1" class="option">No</button>
+    </div>
+    <div *ngIf="showOptions">
+        please select the intensity-
+        <br>
+        <button mat-stroked-button color="primary" (click)="symptomList[displayControl].intensity='low';displayControl=displayControl+1;showOptions=0" class="option">{{symptomList[displayControl].intensityOptions[0]}}</button>
+        <br>
+        <button mat-stroked-button color="primary" (click)="symptomList[displayControl].intensity='medium';displayControl=displayControl+1;showOptions=0" class="option">{{symptomList[displayControl].intensityOptions[1]}}</button>
+        <br>
+        <button mat-stroked-button color="primary" (click)="symptomList[displayControl].intensity='high';displayControl=displayControl+1;showOptions=0" class="option">{{symptomList[displayControl].intensityOptions[2]}}</button>
+    </div>
+</div>
+<div *ngIf="displayControl==13">
+    <button mat-stroked-button color="primary" (click)="sendData();displayControl=displayControl+1" class="option">submit</button>
+</div>
+<div *ngIf="displayControl>0">
+    <hr>
+    <button mat-stroked-button color="primary" (click)="displayControl=displayControl-1" class="option">back</button>
+</div>

@@ -11,6 +11,7 @@ connectDb= require('./db/connection');
 connectDb();
 
 app.use('/user',require('./routes/userRegistration'));
+app.use('/symptoms',require('./routes/symptoms'));
 
 const port = 3000;
 

@@ -3,7 +3,12 @@ const mongoose= require("mongoose");
 const symptomData= new mongoose.Schema({
     userId: String,
     symptomArray:[{name:String,value:String,intensity:String}],
-    date: Date
+    date: Date,
+    seriousSymptoms: Number,
+    commonSymptoms: Number,
+    rareSymptoms: Number,
+    commonIntensity: String,
+    rareIntensity: String,
 })
 
 

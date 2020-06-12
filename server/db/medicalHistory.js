@@ -7,7 +7,9 @@ const history= new mongoose.Schema({
     bp:Boolean,
     diabities: Boolean,
     heart: Boolean,
-    lung: Boolean
+    lung: Boolean,
+    riskAgeGroup: Boolean,
+    riskMedicalCondition: Boolean
 })
 
 

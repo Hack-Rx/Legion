@@ -1,25 +1,42 @@
-<h3> Sign up </h3>
-<div class="form-group">
-    <mat-form-field appearance="fill">
-        <mat-label>Name</mat-label>
-        <input matInput [(ngModel)]="name" value="">
-    </mat-form-field>
+
+<div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+    {{errorMessage}}
 </div>
-<div class="form-group">
-    <mat-form-field appearance="fill">
-        <mat-label>Email</mat-label>
-        <input matInput type="email" [(ngModel)]="email" value="">
-    </mat-form-field>
+
+<div class="shadow p-3 mb-5 bg-white rounded">
+    <div class="header row justify-content-center">
+        <h3> Sign up </h3>
+    </div>
+    <div class="form-group">
+        <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Name</mat-label>
+            <input matInput [(ngModel)]="name" value="">
+        </mat-form-field>
+    </div>
+    <div class="form-group">
+        <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" [(ngModel)]="email" value="">
+        </mat-form-field>
+    </div>
+    <div class="form-group">
+        <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" [(ngModel)]="password" value="">
+        </mat-form-field>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary" (click)="signUp()"> Sign up </button>
+    </div>
+    <div class="form-group">
+        Already have an account, <a routerLink="/login">Login</a>
+    </div>
 </div>
-<div class="form-group">
-    <mat-form-field appearance="fill">
-        <mat-label>Password</mat-label>
-        <input matInput type="password" [(ngModel)]="password" value="">
-    </mat-form-field>
-</div>
-<div class="form-group">
-    <button class="btn btn-primary" (click)="signUp()"> Sign up </button>
-</div>
-<div class="form-group">
-    Already have an account, <a routerLink="/login">Login</a>
-</div>
+
+
+
+
+
+
+
+

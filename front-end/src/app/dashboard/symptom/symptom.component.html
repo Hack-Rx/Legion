@@ -25,6 +25,9 @@
 <div *ngIf="displayControl==13">
     <button class="btn btn-outline-success" (click)="sendData();displayControl=displayControl+1">submit</button>
 </div>
+<div *ngIf="displayControl==14">
+    <button mat-stroked-button color="primary" (click)="getReport();displayControl=displayControl+1" class="option">generate report</button>
+</div>
 <div *ngIf="displayControl>0">
     <hr>
     <button class="btn btn-outline-dark" (click)="displayControl=displayControl-1">back</button>

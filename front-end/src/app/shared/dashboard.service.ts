@@ -26,4 +26,9 @@ export class DashboardService {
   postMedicalData(data){
     return this.http.post(this.url2+'/medicalData',data);
   }
+
+  generateReport(){
+    return this.http.get(this.url2+'/generateReport');
+  }
+
 }

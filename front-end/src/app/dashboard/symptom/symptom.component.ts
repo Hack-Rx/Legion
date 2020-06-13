@@ -10,6 +10,7 @@ export class SymptomComponent implements OnInit {
   displayControl;
   symptomList;
   showOptions=0;
+  report;
 
   constructor(public dashboardService: DashboardService) { }
 
@@ -38,6 +39,15 @@ export class SymptomComponent implements OnInit {
     },err=>{
       console.log(err);
     });
+  }
+
+  getReport(){
+    this.dashboardService.generateReport().subscribe(res=>{
+      this.report=res;
+      console.log(res);
+    },err=>{
+      console.log(err);
+    })
   }
 
 }

@@ -4,13 +4,18 @@ const { validationResult } = require('express-validator');
 const symptoms= require('../db/symptoms');
 const symptomData= require('../db/symptomData');
 const medicalHistory= require('../db/medicalHistory');
+const report=require('../db/report');
 
 
 // import all the required functions
 const {
     calculateSymptomsCount,
     calculateIntensity,
-    updateDays
+    updateDays,
+    isRiskAgeGroup,
+    isRiskMedicalCondition,
+    checkSymptomDaysRisk,
+    checkSymptomRisk
 }= require('./symptom.services');
 
 /*
@@ -118,4 +123,77 @@ const addMedicalData =  async (req,res)=>{
     }
 }
 
-module.exports = {sendSymptomList, addSymptomsData, addMedicalData};
+/*
+user report generate api controller
+req = userId
+res = risk report for today
+*/
+const generateReport= async (req,res)=>{
+    try{
+        let date= new Date().toISOString().split('T')[0];
+        let dt= new Date(date);
+        let symptomsShown=false;
+        let isRiskGroup=false;
+        let totalRisk=0;
+        risk=[];
+        let ageRisk=await isRiskAgeGroup(req._id);
+        let medicalRisk=await isRiskMedicalCondition(req._id);
+        let daysRisk= await checkSymptomDaysRisk(req._id);
+        let symptomRisk=await checkSymptomRisk(req._id);
+        if(ageRisk){
+            isRiskGroup=true;
+            ageRisk.forEach(data => {
+                risk.push(data)
+            });
+        }
+        else if(medicalRisk){
+            isRiskGroup=true;
+            medicalRisk.forEach(data => {
+                risk.push(data)
+            });
+        }
+        if(daysRisk)
+        daysRisk.forEach(data => {
+            risk.push(data)
+        });
+        if(symptomRisk)
+        symptomRisk.forEach(data => {
+            risk.push(data);
+            symptomsShown=true;
+        });
+        console.log(risk);
+        risk.forEach(data => {
+            totalRisk+=data.riskValue;
+        });
+        var doc=await report.findOne({userId:req._id,date:dt});
+        // if first symptom log of the day
+        if(!doc){
+            let newReport= new report();
+            newReport.userId=req._id;
+            newReport.date=dt;
+            newReport.totalRisk=totalRisk;
+            newReport.risk=risk;
+            newReport.symptom = symptomsShown?true:false;
+            newReport.isRiskGroup= isRiskGroup;
+            var savedReport =await newReport.save();
+            res.status(200).send(savedReport);
+        }
+        // updated symptom log 
+        else{
+            var document = await report.findOneAndUpdate({userId:req._id,date:dt},{
+                totalRisk:totalRisk,
+                risk:risk,
+                symptom: symptomsShown?true:false,
+                isRiskGroup: isRiskGroup
+            });
+            var updatedReport = await report.findOne({_id:document._id});
+            res.status(200).send(updatedReport);
+        } 
+    }
+    catch(err){
+        console.log(err);
+        res.status(500).send({message:err.message});
+    }
+}
+
+module.exports = {sendSymptomList, addSymptomsData, addMedicalData, generateReport};

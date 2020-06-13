@@ -23,6 +23,7 @@ import { ProfileComponent } from './dashboard/profile/profile.component';
 import { SymptomComponent } from './dashboard/symptom/symptom.component';
 import { MedicalComponent } from './dashboard/medical/medical.component';
 import { ReportComponent } from './dashboard/symptom/report/report.component';
+import { ProtecttionTipsComponent } from './dashboard/protecttion-tips/protecttion-tips.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ReportComponent } from './dashboard/symptom/report/report.component';
     ProfileComponent,
     SymptomComponent,
     MedicalComponent,
-    ReportComponent
+    ReportComponent,
+    ProtecttionTipsComponent
   ],
   imports: [
     BrowserModule,

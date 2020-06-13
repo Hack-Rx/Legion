@@ -204,7 +204,7 @@ const isRiskMedicalCondition= async (id)=>{
     var doc= await medicalHistory.findOne({userId:id});
     if(doc.riskMedicalCondition){
         riskfactor= calculateRiskValue("riskMedicalCondition");
-        risk.push({factor:"risk medical condition",riskfactor});
+        risk.push({factor:"risk medical condition",riskValue:riskfactor});
         return risk;
     }
 }

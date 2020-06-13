@@ -206,9 +206,12 @@ const generateReport= async (req,res)=>{
         risk.forEach(data => {
             totalRisk+=data.riskValue;
         });
+        console.log(totalRisk);
+        console.log(typeof(totalRisk));
         var doc=await report.findOne({userId:req._id,date:dt});
         // if first symptom log of the day
         if(!doc){
+            console.log("case 1");
             let newReport= new report();
             newReport.userId=req._id;
             newReport.date=dt;

@@ -2015,29 +2015,34 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     var ProfileComponent = /*#__PURE__*/function () {
       function ProfileComponent(dashboardservice, homeservice, router) {
+        var _this2 = this;
+
         _classCallCheck(this, ProfileComponent);
 
         this.dashboardservice = dashboardservice;
         this.homeservice = homeservice;
         this.router = router;
+        this.dashboardservice.newSymptomAdded().subscribe(function (data) {
+          _this2.ngOnInit();
+        });
       }
 
       _createClass(ProfileComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this2 = this;
+          var _this3 = this;
 
           this.dashboardservice.getUserProfile().subscribe(function (res) {
             console.log(res);
-            _this2.userDetails = res['user'];
+            _this3.userDetails = res['user'];
           });
           this.dashboardservice.isMedicalDataAvailable().subscribe(function (res) {
             if (res['status'] == false) {
-              _this2.medicalData = null;
+              _this3.medicalData = null;
             } else {
-              _this2.dashboardservice.getMedicalData().subscribe(function (res) {
-                _this2.medicalData = res;
-                console.log(_this2.medicalData);
+              _this3.dashboardservice.getMedicalData().subscribe(function (res) {
+                _this3.medicalData = res;
+                console.log(_this3.medicalData);
               }, function (err) {
                 console.log(err);
               });
@@ -2047,22 +2052,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           });
           this.dashboardservice.getSymptomHistory().subscribe(function (res) {
             console.log("symptomhistory- ", res);
-            if (res[0]) _this2.isSymptomHistory = true;
-            _this2.symptomHistory = res;
+            if (res[0]) _this3.isSymptomHistory = true;
+            _this3.symptomHistory = res;
           }, function (err) {
             console.log(err);
           });
           this.dashboardservice.getRiskData().subscribe(function (res) {
             console.log(res);
-            _this2.dates = res['date'];
-            _this2.risk = res['risk'];
+            _this3.dates = res['date'];
+            _this3.risk = res['risk'];
             var myChart = new node_modules_chart_js__WEBPACK_IMPORTED_MODULE_1__["Chart"]("mychart", {
               type: 'line',
               data: {
-                labels: _this2.dates,
+                labels: _this3.dates,
                 datasets: [{
                   label: 'risk level',
-                  data: _this2.risk,
+                  data: _this3.risk,
                   backgroundColor: 'lightblue',
                   borderColor: 'blue',
                   borderWidth: 1
@@ -3975,18 +3980,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(SymptomComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this3 = this;
+          var _this4 = this;
 
           this.displayControl = -1;
           this.dashboardService.isMedicalDataAvailable().subscribe(function (res) {
-            _this3.isMedicalDataAvailable = res["status"];
+            _this4.isMedicalDataAvailable = res["status"];
           }, function (err) {
             console.log(err);
           });
           this.dashboardService.getSymptomsList().subscribe(function (res) {
             console.log("symptoms list- ");
             console.log(res);
-            _this3.symptomList = res;
+            _this4.symptomList = res;
           });
         }
       }, {
@@ -4001,30 +4006,30 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "sendData",
         value: function sendData() {
-          var _this4 = this;
+          var _this5 = this;
 
           console.log(this.symptomList);
           this.dashboardService.postSymptoms(this.symptomList).subscribe(function (res) {
             console.log(res);
           }, function (err) {
             console.log(err);
-            _this4.errorMessage = err.error.message;
+            _this5.errorMessage = err.error.message;
             setTimeout(function () {
-              _this4.errorMessage = null;
+              _this5.errorMessage = null;
             }, 4000);
-            _this4.displayControl = 0;
+            _this5.displayControl = 0;
           });
         }
       }, {
         key: "getReport",
         value: function getReport() {
-          var _this5 = this;
+          var _this6 = this;
 
           this.dashboardService.generateReport().subscribe(function (res) {
-            _this5.report = res;
+            _this6.report = res;
             console.log(res);
 
-            _this5.openReportDialog();
+            _this6.openReportDialog();
           }, function (err) {
             console.log(err);
           });
@@ -4070,7 +4075,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "sendMedicalData",
         value: function sendMedicalData() {
-          var _this6 = this;
+          var _this7 = this;
 
           console.log(this.smoker, this.bp, this.diabities, this.heart, this.lung, this.age);
           var data = {
@@ -4082,15 +4087,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             lung: this.lung
           };
           this.dashboardService.postMedicalData(data).subscribe(function (res) {
-            _this6.isMedicalDataAvailable = true;
-            _this6.displayControl = -1;
+            _this7.isMedicalDataAvailable = true;
+            _this7.displayControl = -1;
             console.log(res);
           }, function (err) {
-            _this6.errorMessage = err.error.message;
+            _this7.errorMessage = err.error.message;
             setTimeout(function () {
-              _this6.errorMessage = null;
+              _this7.errorMessage = null;
             }, 4000);
-            _this6.displayControl = 0;
+            _this7.displayControl = 0;
           });
         }
       }]);
@@ -4379,7 +4384,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(LoginComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this7 = this;
+          var _this8 = this;
 
           if (this.homeservice.isloggedin()) {
             this.router.navigateByUrl('/dashboard');
@@ -4392,13 +4397,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             this.successMessage = "Registration successful, login to continue";
             this.clearParams();
             setTimeout(function () {
-              _this7.successMessage = null;
+              _this8.successMessage = null;
             }, 4000);
           } else if (success == "logout") {
             this.successMessage = "logout successful";
             this.clearParams();
             setTimeout(function () {
-              _this7.successMessage = null;
+              _this8.successMessage = null;
             }, 4000);
           }
         }
@@ -4412,20 +4417,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "login",
         value: function login() {
-          var _this8 = this;
+          var _this9 = this;
 
           var data = {
             email: this.email,
             password: this.password
           };
           this.homeservice.login(data).subscribe(function (res) {
-            _this8.homeservice.setToken(res['token']);
+            _this9.homeservice.setToken(res['token']);
 
-            _this8.router.navigateByUrl('/dashboard');
+            _this9.router.navigateByUrl('/dashboard');
           }, function (err) {
-            _this8.errorMessage = err.error.message;
+            _this9.errorMessage = err.error.message;
             setTimeout(function () {
-              _this8.errorMessage = null;
+              _this9.errorMessage = null;
             }, 4000);
           });
         }
@@ -4672,7 +4677,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "signUp",
         value: function signUp() {
-          var _this9 = this;
+          var _this10 = this;
 
           var data = {
             name: this.name,
@@ -4680,11 +4685,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             password: this.password
           };
           this.homeservice.signUp(data).subscribe(function (res) {
-            _this9.router.navigateByUrl('/login?success=signup');
+            _this10.router.navigateByUrl('/login?success=signup');
           }, function (err) {
-            _this9.errorMessage = err.error.message;
+            _this10.errorMessage = err.error.message;
             setTimeout(function () {
-              _this9.errorMessage = null;
+              _this10.errorMessage = null;
             }, 4000);
           });
         }
@@ -4994,11 +4999,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "postSymptoms",
         value: function postSymptoms(symptomData) {
+          this.ReloadFunction();
           return this.http.post(this.url2 + '/addSymptoms', symptomData);
         }
       }, {
         key: "postMedicalData",
         value: function postMedicalData(data) {
+          this.ReloadFunction();
           return this.http.post(this.url2 + '/medicalData', data);
         }
       }, {
@@ -5009,6 +5016,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "generateReport",
         value: function generateReport() {
+          this.ReloadFunction();
           return this.http.get(this.url2 + '/generateReport');
         }
       }, {
@@ -5025,6 +5033,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         key: "getSymptomHistory",
         value: function getSymptomHistory() {
           return this.http.get(this.url2 + '/symptomHistory');
+        }
+      }, {
+        key: "ReloadFunction",
+        value: function ReloadFunction() {
+          var _this11 = this;
+
+          setTimeout(function () {
+            _this11.reload.next(1);
+          }, 2000);
+        }
+      }, {
+        key: "newSymptomAdded",
+        value: function newSymptomAdded() {
+          return this.reload.asObservable();
         }
       }]);
 

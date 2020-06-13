@@ -7,10 +7,10 @@ import { Observable, Subject } from 'rxjs';
 })
 export class DashboardService {
 
-  url1="user";
-  url2="symptoms";
-  // url1="http://localhost:3000/user";
-  // url2="http://localhost:3000/symptoms";
+  // url1="user";
+  // url2="symptoms";
+  url1="http://localhost:3000/user";
+  url2="http://localhost:3000/symptoms";
 
   reload=new Subject();
 
@@ -25,10 +25,12 @@ export class DashboardService {
   }
 
   postSymptoms(symptomData){
+    this.ReloadFunction();
     return this.http.post(this.url2+'/addSymptoms',symptomData);
   }
 
   postMedicalData(data){
+    this.ReloadFunction();
     return this.http.post(this.url2+'/medicalData',data);
   }
 
@@ -37,6 +39,7 @@ export class DashboardService {
   }
 
   generateReport(){
+    this.ReloadFunction();
     return this.http.get(this.url2+'/generateReport');
   }
 
@@ -50,6 +53,16 @@ export class DashboardService {
 
   getSymptomHistory(){
     return this.http.get(this.url2+'/symptomHistory');
+  }
+
+  ReloadFunction(){
+    setTimeout(() => {
+      this.reload.next(1);
+    }, 2000);
+  }
+
+  newSymptomAdded(): Observable<any>{
+    return this.reload.asObservable();
   }
 
 }

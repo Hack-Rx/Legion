@@ -1125,6 +1125,9 @@ class ProfileComponent {
         this.dashboardservice = dashboardservice;
         this.homeservice = homeservice;
         this.router = router;
+        this.dashboardservice.newSymptomAdded().subscribe(data => {
+            this.ngOnInit();
+        });
     }
     ngOnInit() {
         this.dashboardservice.getUserProfile().subscribe(res => {
@@ -2551,15 +2554,18 @@ class DashboardService {
         return this.http.get(this.url2 + '/symptomList');
     }
     postSymptoms(symptomData) {
+        this.ReloadFunction();
         return this.http.post(this.url2 + '/addSymptoms', symptomData);
     }
     postMedicalData(data) {
+        this.ReloadFunction();
         return this.http.post(this.url2 + '/medicalData', data);
     }
     isMedicalDataAvailable() {
         return this.http.get(this.url2 + '/isMedicalDataAvailable');
     }
     generateReport() {
+        this.ReloadFunction();
         return this.http.get(this.url2 + '/generateReport');
     }
     getRiskData() {
@@ -2570,6 +2576,14 @@ class DashboardService {
     }
     getSymptomHistory() {
         return this.http.get(this.url2 + '/symptomHistory');
+    }
+    ReloadFunction() {
+        setTimeout(() => {
+            this.reload.next(1);
+        }, 2000);
+    }
+    newSymptomAdded() {
+        return this.reload.asObservable();
     }
 }
 DashboardService.ɵfac = function DashboardService_Factory(t) { return new (t || DashboardService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"])); };

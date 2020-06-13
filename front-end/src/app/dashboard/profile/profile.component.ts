@@ -18,7 +18,11 @@ export class ProfileComponent implements OnInit {
   symptomHistory;
   isSymptomHistory;
 
-  constructor(public dashboardservice: DashboardService,public homeservice: HomeService,public router: Router) { }
+  constructor(public dashboardservice: DashboardService,public homeservice: HomeService,public router: Router) {
+    this.dashboardservice.newSymptomAdded().subscribe(data=>{
+      this.ngOnInit();
+    })
+   }
 
   ngOnInit(): void {
     this.dashboardservice.getUserProfile().subscribe(res=>{

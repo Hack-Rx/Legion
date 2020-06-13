@@ -1,0 +1,157 @@
+<div class="container">
+    <div *ngIf="!data.symptom && !data.isRiskGroup">
+        <div class="header">
+            <h3>Your risk level- </h3>
+        </div>
+        <div class="progress">
+            <div class="progress-bar bg-success" role="progressbar" [ngStyle]="{'width': (calculateRiskPercent(data.totalRisk))}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{data.totalRisk}}</div>
+        </div>    
+        <br>
+        <div class="alert alert-success" role="alert">
+            You do not have any symptom of covid-19. Howerver, you should follow the guidelines from WHO to
+             protect yourselves and others.
+        </div>
+        <div>
+            <div class="header">
+                <h4>Explanation</h4>
+            </div>
+            <div>
+                You do not have any symptom of covid-19 and also you do not belong to any of the risky groups like
+                 people with risk medical history or people with risky age group. Still, you should maintain social
+                 distancing and follow the guidelines by WHO.
+            </div>
+            <hr>
+            <div class="header">
+                <h4>WHO guidelines:</h4>
+            </div>
+            <ol>
+                <li>Regularly and thoroughly clean your hands with an alcohol-based hand rub or wash them with soap and water. </li>
+                <li>Maintain at least 1 metre (3 feet) distance between yourself and others.</li>
+                <li>Avoid going to crowded places.</li>
+                <li>Avoid touching eyes, nose and mouth.</li>
+                <li>Make sure you, and the people around you, follow good respiratory hygiene. This means covering your mouth and nose with your bent elbow or tissue when you cough or sneeze.</li>
+                <li>Stay home and self-isolate even with minor symptoms such as cough, headache, mild fever, until you recover.</li>
+                <li>Use a face mask when going outside to protect others, according to your national guidelines.</li>
+            </ol>
+        </div>
+    </div>
+    
+    <div *ngIf="data.isRiskGroup && !data.symptom && data.totalRisk<8">
+        <div class="header">
+            <h3>Your risk level- </h3>
+        </div>
+        <div class="progress">
+            <div class="progress-bar bg-warning" role="progressbar" [ngStyle]="{'width': (calculateRiskPercent(data.totalRisk))}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{data.totalRisk}}</div>
+        </div> 
+        <br>
+        <div class="alert alert-warning" role="alert">
+            You do not have any symptom of covid-19. Howerver, you should follow the guidelines from WHO to
+             protect yourselves and others.
+        </div>
+        <div>
+            <div class="header">
+                <h4>Explanation</h4>
+            </div>
+            <div>
+                You do not have any symptom of covid-19 but you belong to the risky groups like
+                 people with risk medical history or people with risky age group. These people 
+                 have higher risk of developing serious conditions due to corona. So, we advice 
+                 you to stay home, maintain social distancing and be safe.
+            </div>
+            <hr>
+            <div class="header">
+                <h4>WHO guidelines:</h4>
+            </div>
+            <ol>
+                <li>Regularly and thoroughly clean your hands with an alcohol-based hand rub or wash them with soap and water. </li>
+                <li>Maintain at least 1 metre (3 feet) distance between yourself and others.</li>
+                <li>Avoid going to crowded places.</li>
+                <li>Avoid touching eyes, nose and mouth.</li>
+                <li>Make sure you, and the people around you, follow good respiratory hygiene. This means covering your mouth and nose with your bent elbow or tissue when you cough or sneeze.</li>
+                <li>Stay home and self-isolate even with minor symptoms such as cough, headache, mild fever, until you recover.</li>
+                <li>Use a face mask when going outside to protect others, according to your national guidelines.</li>
+            </ol>
+        </div>
+    </div>
+    
+    <div *ngIf="data.symptom && data.totalRisk<8">
+        <div class="header">
+            <h3>Your risk level- </h3>
+        </div>
+        <div class="progress">
+            <div class="progress-bar bg-warning" role="progressbar" [ngStyle]="{'width': (calculateRiskPercent(data.totalRisk))}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{data.totalRisk}}</div>
+        </div> 
+        <br>
+        <div class="alert alert-warning" role="alert">
+            You have very mild symptoms which may be caused by covid-19. Howerver, you do need to 
+            worry about it, just stay home and keep logging your symptoms daily to see if the risk is 
+            escalating.
+        </div>
+        <div>
+            <div class="header">
+                <h4>Explanation</h4>
+            </div>
+            <div>
+                you have very mild symptoms and these may or may not be due to corona. Your symptoms include-
+                <ul *ngFor="let item of data.risk"> 
+                    <li>{{item.factor}}</li>
+                </ul>
+            </div>
+            <div>
+                We advise you to stay isolated till your symptoms are gone and you become completely healthy 
+                and follow the WHO guidelines.
+            </div>
+            <hr>
+            <div class="header">
+                <h4>WHO guidelines:</h4>
+            </div>
+            <ol>
+                <li>Regularly and thoroughly clean your hands with an alcohol-based hand rub or wash them with soap and water. </li>
+                <li>Maintain at least 1 metre (3 feet) distance between yourself and others.</li>
+                <li>Avoid going to crowded places.</li>
+                <li>Avoid touching eyes, nose and mouth.</li>
+                <li>Make sure you, and the people around you, follow good respiratory hygiene. This means covering your mouth and nose with your bent elbow or tissue when you cough or sneeze.</li>
+                <li>Stay home and self-isolate even with minor symptoms such as cough, headache, mild fever, until you recover.</li>
+                <li>Use a face mask when going outside to protect others, according to your national guidelines.</li>
+            </ol>
+        </div>
+    </div>
+    
+    <div *ngIf="data.totalRisk>7">
+        <div class="header">
+            <h3>Your risk level- </h3>
+        </div>
+        <div class="progress">
+            <div class="progress-bar bg-danger" role="progressbar" [ngStyle]="{'width': (calculateRiskPercent(data.totalRisk))}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{data.totalRisk}}</div>
+        </div> 
+        <br>
+        <div class="alert alert-danger" role="alert">
+            You need to contact for medical emergency as it is possible that your symptoms are
+            developed due to corona virus. Please reach out for medical help.
+        </div>
+        <div>
+            <div class="header">
+                <h4>Explanation</h4>
+            </div>
+            <div>
+                you have one or more symptoms of covid-19. Your symptoms include-
+                <ul *ngFor="let item of data.risk"> 
+                    <li>{{item.factor}}</li>
+                </ul>
+            </div>
+            <hr>
+            <div class="header">
+                <h4>WHO guidelines:</h4>
+            </div>
+            <ol>
+                <li>Regularly and thoroughly clean your hands with an alcohol-based hand rub or wash them with soap and water. </li>
+                <li>Maintain at least 1 metre (3 feet) distance between yourself and others.</li>
+                <li>Avoid going to crowded places.</li>
+                <li>Avoid touching eyes, nose and mouth.</li>
+                <li>Make sure you, and the people around you, follow good respiratory hygiene. This means covering your mouth and nose with your bent elbow or tissue when you cough or sneeze.</li>
+                <li>Stay home and self-isolate even with minor symptoms such as cough, headache, mild fever, until you recover.</li>
+                <li>Use a face mask when going outside to protect others, according to your national guidelines.</li>
+            </ol>
+        </div>
+    </div>
+</div>

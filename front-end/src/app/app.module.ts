@@ -16,11 +16,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDialogModule} from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './dashboard/profile/profile.component';
 import { SymptomComponent } from './dashboard/symptom/symptom.component';
 import { MedicalComponent } from './dashboard/medical/medical.component';
+import { ReportComponent } from './dashboard/symptom/report/report.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { MedicalComponent } from './dashboard/medical/medical.component';
     DashboardComponent,
     ProfileComponent,
     SymptomComponent,
-    MedicalComponent
+    MedicalComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,8 @@ import { MedicalComponent } from './dashboard/medical/medical.component';
     BrowserAnimationsModule,
     MatInputModule,
     MatFormFieldModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS,

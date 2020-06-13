@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from 'src/app/shared/dashboard.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ReportComponent } from './report/report.component';
 
 @Component({
   selector: 'app-symptom',
@@ -12,7 +14,7 @@ export class SymptomComponent implements OnInit {
   showOptions=0;
   report;
 
-  constructor(public dashboardService: DashboardService) { }
+  constructor(public dashboardService: DashboardService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.displayControl=-1;
@@ -45,9 +47,21 @@ export class SymptomComponent implements OnInit {
     this.dashboardService.generateReport().subscribe(res=>{
       this.report=res;
       console.log(res);
+      this.openReportDialog();
     },err=>{
       console.log(err);
     })
+  }
+
+  openReportDialog(): void {
+    const dialogRef = this.dialog.open(ReportComponent, {
+      width: '1500px',
+      height: '500px',
+      data: this.report
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
 }

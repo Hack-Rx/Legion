@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,8 @@ export class DashboardService {
 
   url1="http://localhost:3000/user";
   url2="http://localhost:3000/symptoms";
+
+  reload=new Subject();
 
   constructor(public http: HttpClient) { }
 

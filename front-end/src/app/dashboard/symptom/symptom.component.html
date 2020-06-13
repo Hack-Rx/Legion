@@ -15,7 +15,7 @@
         <button class="btn btn-primary" color="accent" (click)="displayControl=displayControl+1">Start</button>
     </div>
     <div *ngIf="displayControl==0">
-        what is your age
+        <h6>What is your age</h6>
         <mat-form-field appearance="fill" class="example-full-width">
             <mat-label>age</mat-label>
             <input matInput [(ngModel)]='age'>
@@ -23,31 +23,31 @@
         <button class="btn btn-outline-info" color="accent" (click)="displayControl=displayControl+1">confirm</button>
     </div>
     <div *ngIf="displayControl==1">
-        Are you a smoker, or do you have a history of smoking
+        <h6>Are you a smoker, or do you have a history of smoking?</h6>
         <button class="btn btn-outline-info" color="primary" (click)="setSmoker(1);displayControl=displayControl+1">Yes</button>
         <br>
         <button class="btn btn-outline-info" color="primary" (click)="setSmoker(0);displayControl=displayControl+1">No</button>
     </div>
     <div *ngIf="displayControl==2">
-        Do you have high blood pressure
+        <h6>Do you have high blood pressure?</h6>
         <button class="btn btn-outline-info" color="primary" (click)="setBP(1);displayControl=displayControl+1">Yes</button>
         <br>
         <button class="btn btn-outline-info" color="primary" (click)="setBP(0);displayControl=displayControl+1">No</button>
     </div>
     <div *ngIf="displayControl==3">
-        Do you have diabities
+        <h6>Do you have diabities?</h6>
         <button class="btn btn-outline-info" color="primary" (click)="setDiabities(1);displayControl=displayControl+1">Yes</button>
         <br>
         <button class="btn btn-outline-info" color="primary" (click)="setDiabities(0);displayControl=displayControl+1">No</button>
     </div>
     <div *ngIf="displayControl==4">
-        Do you have history of heart disease
+        <h6>Do you have history of heart disease?</h6>
         <button class="btn btn-outline-info" color="primary" (click)="setHeart(1);displayControl=displayControl+1">Yes</button>
         <br>
         <button class="btn btn-outline-info" color="primary" (click)="setHeart(0);displayControl=displayControl+1">No</button>
     </div>
     <div *ngIf="displayControl==5">
-        Do you have history of lung disease
+        <h6>Do you have history of lung disease?</h6>
         <button class="btn btn-outline-info" color="primary" (click)="setLung(1);displayControl=displayControl+1">Yes</button>
         <br>
         <button class="btn btn-outline-info" color="primary" (click)="setLung(0);displayControl=displayControl+1">No</button>
@@ -71,7 +71,7 @@
         <button class="btn btn-primary" color="accent" (click)="displayControl=displayControl+1">Start</button>
     </div>
     <div *ngIf="displayControl>-1 && displayControl<13 && symptomList">
-        do you have {{symptomList[displayControl].name}}
+        <h6>Do you have {{symptomList[displayControl].name}}?</h6>
         <div *ngIf="!showOptions">
             <button class="btn btn-outline-info" color="primary" (click)="symptomList[displayControl].value=true;checkIntensityOptions(displayControl)">Yes</button>
             <br>

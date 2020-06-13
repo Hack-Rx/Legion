@@ -2,5 +2,69 @@
     user- {{userDetails.fullname}}
     <br>
     email- {{userDetails.email}}
-    <button class="logout" (click)="logout()">Log Out</button>
+</div>
+
+<div class="profile-content">
+    <div class="header">
+        <h4>Last 15 days risk levels-</h4>
+    </div>
+    <div class="charts">
+        <canvas id="mychart"></canvas>
+    </div>
+</div>
+
+<div class="profile-content" *ngIf="medicalData">
+    <div class="header">
+        <h4>Medical data- </h4>
+    </div>
+    <table class="table table-hover w-50">
+        <thead>
+            <th>Condition</th>
+            <th>Data</th>
+        </thead>
+        <tbody>
+            <tr [ngClass]="{'table-danger':medicalData.age>=65 || medicalData.age<=5}">
+                <td>age</td>
+                <td>{{medicalData.age}}</td>
+            </tr>
+            <tr [ngClass]="{'table-danger':medicalData.bp}">
+                <td>BP</td>
+                <td>{{medicalData.bp}}</td>
+            </tr>
+            <tr [ngClass]="{'table-danger':medicalData.smoker}">
+                <td>Smoker</td>
+                <td>{{medicalData.smoker}}</td>
+            </tr>
+            <tr [ngClass]="{'table-danger':medicalData.heart}">
+                <td>Heart disease</td>
+                <td>{{medicalData.heart}}</td>
+            </tr>
+            <tr [ngClass]="{'table-danger':medicalData.lung}">
+                <td>Lung disease</td>
+                <td>{{medicalData.lung}}</td>
+            </tr>
+            <tr [ngClass]="{'table-danger':medicalData.diabities}">
+                <td>Diabities</td>
+                <td>{{medicalData.diabities}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="profile-content" *ngIf="isSymptomHistory">
+    <div class="header">
+        <h4>Symptoms history- </h4>
+    </div>
+    <table class="table table-sm table-hover">
+        <thead class="table-active">
+            <th>date</th>
+            <th *ngFor="let symptom of symptomHistory[0].symptomArray">{{symptom.name}}</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of symptomHistory">
+                <td>{{data.date | date: 'dd/MM/yyyy'}}</td>
+                <td *ngFor="let symptom of data.symptomArray">{{symptom.value}}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>

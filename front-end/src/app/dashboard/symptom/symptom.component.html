@@ -1,34 +1,105 @@
-<div *ngIf="displayControl==-1">
-    <h4>
-        For accurate results do not foget to log your symptoms daily. let's get started and 
-        calculate your corona risk level. 
-    </h4>
-    <button class="btn btn-secondary" (click)="displayControl=displayControl+1">Start</button>
-</div>
-<div *ngIf="displayControl>-1 && displayControl<13 && symptomList">
-    do you have {{symptomList[displayControl].name}}
-    <div *ngIf="!showOptions">
-        <button class="btn btn-outline-primary" (click)="symptomList[displayControl].value=true;checkIntensityOptions(displayControl)" >Yes</button>
-        <br>
-        <button class="btn btn-outline-primary" (click)="symptomList[displayControl].value=false;displayControl=displayControl+1">No</button>
+<div class="header row justify-content-center">
+    <h3 style="color: blue;">covid-19 assessment</h3>
+    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+        {{errorMessage}}
     </div>
-    <div *ngIf="showOptions">
-        please select the intensity-
+    <br>
+</div>
+<hr>
+<div class="content" *ngIf="!isMedicalDataAvailable">
+    <div *ngIf="displayControl==-1">
+        <h5>Hii, welcome to the corona symptom tracker. To know your possible conona risk,
+            we need to check for various symptoms and underlying health consitions. Let, get 
+            started with few questions related to your underlying health conditions.
+        </h5>
+        <button class="btn btn-primary" color="accent" (click)="displayControl=displayControl+1">Start</button>
+    </div>
+    <div *ngIf="displayControl==0">
+        what is your age
+        <mat-form-field appearance="fill" class="example-full-width">
+            <mat-label>age</mat-label>
+            <input matInput [(ngModel)]='age'>
+        </mat-form-field>
+        <button class="btn btn-outline-info" color="accent" (click)="displayControl=displayControl+1">confirm</button>
+    </div>
+    <div *ngIf="displayControl==1">
+        Are you a smoker, or do you have a history of smoking
+        <button class="btn btn-outline-info" color="primary" (click)="setSmoker(1);displayControl=displayControl+1">Yes</button>
         <br>
-        <button class="btn btn-outline-primary" (click)="symptomList[displayControl].intensity='low';displayControl=displayControl+1;showOptions=0">{{symptomList[displayControl].intensityOptions[0]}}</button>
+        <button class="btn btn-outline-info" color="primary" (click)="setSmoker(0);displayControl=displayControl+1">No</button>
+    </div>
+    <div *ngIf="displayControl==2">
+        Do you have high blood pressure
+        <button class="btn btn-outline-info" color="primary" (click)="setBP(1);displayControl=displayControl+1">Yes</button>
         <br>
-        <button class="btn btn-outline-primary" (click)="symptomList[displayControl].intensity='medium';displayControl=displayControl+1;showOptions=0">{{symptomList[displayControl].intensityOptions[1]}}</button>
+        <button class="btn btn-outline-info" color="primary" (click)="setBP(0);displayControl=displayControl+1">No</button>
+    </div>
+    <div *ngIf="displayControl==3">
+        Do you have diabities
+        <button class="btn btn-outline-info" color="primary" (click)="setDiabities(1);displayControl=displayControl+1">Yes</button>
         <br>
-        <button class="btn btn-outline-primary" (click)="symptomList[displayControl].intensity='high';displayControl=displayControl+1;showOptions=0">{{symptomList[displayControl].intensityOptions[2]}}</button>
+        <button class="btn btn-outline-info" color="primary" (click)="setDiabities(0);displayControl=displayControl+1">No</button>
+    </div>
+    <div *ngIf="displayControl==4">
+        Do you have history of heart disease
+        <button class="btn btn-outline-info" color="primary" (click)="setHeart(1);displayControl=displayControl+1">Yes</button>
+        <br>
+        <button class="btn btn-outline-info" color="primary" (click)="setHeart(0);displayControl=displayControl+1">No</button>
+    </div>
+    <div *ngIf="displayControl==5">
+        Do you have history of lung disease
+        <button class="btn btn-outline-info" color="primary" (click)="setLung(1);displayControl=displayControl+1">Yes</button>
+        <br>
+        <button class="btn btn-outline-info" color="primary" (click)="setLung(0);displayControl=displayControl+1">No</button>
+    </div>
+    <div *ngIf="displayControl==6">
+        Your medical history data has been succesfully recorded, click ok submit or back to edit the data.
+        <button class="btn btn-outline-success" color="primary" (click)="sendMedicalData();displayControl=displayControl+1">OK</button>
+    </div>
+    <div *ngIf="displayControl>0">
+        <hr>
+        <button class="btn btn-outline-dark" color="primary" (click)="displayControl=displayControl-1">back</button>
     </div>
 </div>
-<div *ngIf="displayControl==13">
-    <button class="btn btn-outline-success" (click)="sendData();displayControl=displayControl+1">submit</button>
-</div>
-<div *ngIf="displayControl==14">
-    <button mat-stroked-button color="primary" (click)="getReport();displayControl=displayControl+1" class="option">generate report</button>
-</div>
-<div *ngIf="displayControl>0">
-    <hr>
-    <button class="btn btn-outline-dark" (click)="displayControl=displayControl-1">back</button>
+
+<div class="content" *ngIf="isMedicalDataAvailable">
+    <div *ngIf="displayControl==-1">
+        <h5>
+            For accurate results do not foget to log your symptoms daily. let's get started and 
+            calculate your corona risk level. 
+        </h5>
+        <button class="btn btn-primary" color="accent" (click)="displayControl=displayControl+1">Start</button>
+    </div>
+    <div *ngIf="displayControl>-1 && displayControl<13 && symptomList">
+        do you have {{symptomList[displayControl].name}}
+        <div *ngIf="!showOptions">
+            <button class="btn btn-outline-info" color="primary" (click)="symptomList[displayControl].value=true;checkIntensityOptions(displayControl)">Yes</button>
+            <br>
+            <button class="btn btn-outline-info" color="primary" (click)="symptomList[displayControl].value=false;displayControl=displayControl+1">No</button>
+        </div>
+        <div *ngIf="showOptions">
+            please select the intensity-
+            <br>
+            <button class="btn btn-outline-info" color="primary" (click)="symptomList[displayControl].intensity='low';displayControl=displayControl+1;showOptions=0">{{symptomList[displayControl].intensityOptions[0]}}</button>
+            <br>
+            <button class="btn btn-outline-info" color="primary" (click)="symptomList[displayControl].intensity='medium';displayControl=displayControl+1;showOptions=0">{{symptomList[displayControl].intensityOptions[1]}}</button>
+            <br>
+            <button class="btn btn-outline-info" color="primary" (click)="symptomList[displayControl].intensity='high';displayControl=displayControl+1;showOptions=0">{{symptomList[displayControl].intensityOptions[2]}}</button>
+        </div>
+    </div>
+    <div *ngIf="displayControl==13">
+        <button class="btn btn-outline-success" color="primary" (click)="sendData();displayControl=displayControl+1" >submit</button>
+    </div>
+    <div *ngIf="displayControl==14">
+        <button class="btn btn-outline-success" color="primary" (click)="getReport();displayControl=displayControl+1">generate report</button>
+    </div>
+
+    <div *ngIf="displayControl==15 && report">
+        <button class="btn btn-outline-primary" color="primary" (click)="displayControl=-1">restart assessment</button>
+    </div>
+
+    <div *ngIf="displayControl>0 && displayControl<15">
+        <hr>
+        <button class="btn btn-outline-dark" color="primary" (click)="displayControl=displayControl-1">back</button>
+    </div>
 </div>

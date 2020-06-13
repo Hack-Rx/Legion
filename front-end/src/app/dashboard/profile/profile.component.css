@@ -1,0 +1,9 @@
+canvas{
+    width: 100% !important;
+    height: 350px !important;
+}
+
+.profile-content{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}

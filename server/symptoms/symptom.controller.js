@@ -1,4 +1,5 @@
 const { validationResult } = require('express-validator');
+const moment = require('moment');
 
 //import required database schemas
 const symptoms= require('../db/symptoms');
@@ -124,6 +125,46 @@ const addMedicalData =  async (req,res)=>{
 }
 
 /*
+check medical data availability api controller
+req = userID
+res = status: true/false
+*/
+const isMedicalDataAvailable= async (req,res)=>{
+    try{
+        var doc = await medicalHistory.findOne({userId:req._id});
+        if(doc){
+            res.status(200).send({status:true});
+        }
+        else{
+            res.status(200).send({status:false});
+        }
+    }
+    catch(err){
+        res.status(500).send({message:err.message});
+    }
+}
+
+/*
+save user medical data api controller
+req = user medical details
+res = message:medical data saved succesfully
+*/
+const getMedicalData =  async (req,res)=>{
+    try{
+        var doc= await medicalHistory.findOne({userId:req._id});
+        if(!doc){
+            res.status(404).send({message:"medical data not yet posted"});
+        }
+        else{
+            res.status(200).send(doc);
+        }
+    }
+    catch(err){
+        res.status(500).send({message:err.message});
+    }
+}
+
+/*
 user report generate api controller
 req = userId
 res = risk report for today
@@ -196,4 +237,76 @@ const generateReport= async (req,res)=>{
     }
 }
 
-module.exports = {sendSymptomList, addSymptomsData, addMedicalData, generateReport};
+/*
+day wise risk data api controller
+req = userId
+res = day wise risk levels data
+*/
+const sendRiskData=  async (req,res)=>{
+    try{
+        let currentdate= new Date().toISOString().split('T')[0];
+        let dt= new Date(currentdate);
+        var doc =await report.find({userId:req._id}).sort({date:1})
+        let date=[];
+        let risk=[];
+        day=14;
+        flag=false;
+        today = moment();
+        start= moment().subtract(15,'d');
+
+        var i;
+        for (i = 0; i < doc.length; i++) {
+            if(today.diff(doc[i].date,'d')<15){
+                if(today.diff(doc[i].date,'d')==day){
+                    date.push(doc[i].date.toISOString().split('T')[0]);
+                    risk.push(doc[i].totalRisk);
+                    day--;
+                    flag=true;
+                }
+                else if(flag==true){
+                    date.push(moment().subtract(day,'d').toISOString().split('T')[0]);
+                    risk.push(doc[i-1].totalRisk);
+                    flag=false;
+                    day--;
+                    i--;
+                }
+                else{
+                    date.push(moment().subtract(day,'d').toISOString().split('T')[0]);
+                    risk.push(0);
+                    day--;
+                    i--;
+                }
+            }
+        }
+        res.status(200).send({date:date,risk:risk});
+    }
+    catch(err){
+        res.status(500).send({message:err.message});
+    }
+}
+
+/*
+day wise symptom data api controller
+req = userId
+res = day wise symptom levels data
+*/
+const sendSymptomHistory=  async (req,res)=>{
+    try{
+        var doc =await symptomData.find({userId:req._id}).sort({date:1});
+        res.status(200).send(doc);
+    }
+    catch(err){
+        res.status(500).send({message:err.message});
+    }
+}
+
+module.exports = {
+    sendSymptomList, 
+    addSymptomsData, 
+    addMedicalData, 
+    generateReport, 
+    isMedicalDataAvailable,
+    sendRiskData,
+    getMedicalData,
+    sendSymptomHistory
+};

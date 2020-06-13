@@ -1,11 +1,26 @@
 <div class="container">
-    <div class="conponent">
-        <app-profile></app-profile>
+    <div class="head-div bg-light">
+        <div class="header row justify-content-center">
+            <h1>Corona Symptom Tracker</h1>
+        </div>
+        <div class="header row justify-content-center">
+            <h3 style="color: blue;">Stay Home, Stay Safe</h3>
+        </div>
+        <p>
+          Protect yourselves and your loved ones, check your symptoms daily and know your corona risk. 
+          Being careful is the only way to avoid corona. Stay healthy, stay happy
+        </p>
+        <div class="float-right">
+            <button class="btn btn-dark" (click)="logout()">Log Out</button>
+        </div>
     </div>
-    <div class="conponent">
+    <div class="conponent shadow p-3 mb-5 bg-white rounded">
         <app-symptom></app-symptom>
     </div>
     <div class="conponent">
-        <app-medical></app-medical>
+        <app-profile></app-profile>
+    </div>
+    <div class="conponent shadow p-3 mb-5 bg-white rounded">
+        <app-protecttion-tips></app-protecttion-tips>
     </div>
 </div>

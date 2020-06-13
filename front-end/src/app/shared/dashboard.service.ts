@@ -27,8 +27,24 @@ export class DashboardService {
     return this.http.post(this.url2+'/medicalData',data);
   }
 
+  isMedicalDataAvailable(){
+    return this.http.get(this.url2+'/isMedicalDataAvailable');
+  }
+
   generateReport(){
     return this.http.get(this.url2+'/generateReport');
+  }
+
+  getRiskData(){
+    return this.http.get(this.url2+'/riskData');
+  }
+
+  getMedicalData(){
+    return this.http.get(this.url2+'/medicalData');
+  }
+
+  getSymptomHistory(){
+    return this.http.get(this.url2+'/symptomHistory');
   }
 
 }

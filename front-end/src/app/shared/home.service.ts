@@ -6,7 +6,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class HomeService {
 
-  url1="http://localhost:3000/user";
+  url1="user";
+  // url1="http://localhost:3000/user";
 
   constructor(public http:HttpClient) { }
 

@@ -7,8 +7,10 @@ import { Observable, Subject } from 'rxjs';
 })
 export class DashboardService {
 
-  url1="http://localhost:3000/user";
-  url2="http://localhost:3000/symptoms";
+  url1="user";
+  url2="symptoms";
+  // url1="http://localhost:3000/user";
+  // url2="http://localhost:3000/symptoms";
 
   reload=new Subject();
 
